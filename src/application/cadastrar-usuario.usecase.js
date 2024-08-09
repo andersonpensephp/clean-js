@@ -5,11 +5,15 @@ module.exports = function cadastrarUsuarioUseCase({ usuariosRepository }) {
     throw new AppError(AppError.dependencias)
   }
   return async function({nome_completo, cpf, telefone, endereco, email}) {
+    const checkCampos = nome_completo && cpf && telefone && endereco && email
+    if (!checkCampos) {
+      throw new AppError(AppError.parametrosFornecidos)
+    }
     await usuariosRepository.cadastrar({
-      nome_completo, 
-      cpf, 
-      telefone, 
-      endereco, 
+      nome_completo,
+      cpf,
+      telefone,
+      endereco,
       email
     })
   }

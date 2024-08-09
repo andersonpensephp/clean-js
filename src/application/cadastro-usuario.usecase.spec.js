@@ -25,4 +25,10 @@ describe('Cadastrar usuario use case', () => {
   it('Deve retornar um throw error, caso não forneça usuariosRepository', () => {
     expect(() => cadastrarUsuarioUsecase({})).toThrow(new AppError(AppError.dependencias));
   })
+
+  it('deve retornar um throw error, caso não forneça os parãmetros para a cloujure', async () => {
+    const sut = cadastrarUsuarioUsecase({ usuariosRepository });
+
+    await expect(() => sut({})).rejects.toThrow(new AppError(AppError.parametrosFornecidos))
+  })
 })
