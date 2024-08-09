@@ -1,3 +1,4 @@
+const AppError = require("../shared/error/AppError")
 const cadastrarUsuarioUsecase = require("./cadastrar-usuario.usecase")
 
 describe('Cadastrar usuario use case', () => {
@@ -13,15 +14,15 @@ describe('Cadastrar usuario use case', () => {
       email: 'email válido'
     }
 
-    const sut = cadastrarUsuarioUsecase({ usuariosRepository })
-    const output = await sut(usuarioDTO)
+    const sut = cadastrarUsuarioUsecase({ usuariosRepository });
+    const output = await sut(usuarioDTO);
 
-    expect(output).toBeUndefined()
-    expect(usuariosRepository.cadastrar).toHaveBeenCalledWith(usuarioDTO)
-    expect(usuariosRepository.cadastrar).toHaveBeenCalledTimes(1)
+    expect(output).toBeUndefined();
+    expect(usuariosRepository.cadastrar).toHaveBeenCalledWith(usuarioDTO);
+    expect(usuariosRepository.cadastrar).toHaveBeenCalledTimes(1);
   })
   
   it('Deve retornar um throw error, caso não forneça usuariosRepository', () => {
-    expect(() => cadastrarUsuarioUsecase({})).toThrow('usuariosRepository não fornecido.');
+    expect(() => cadastrarUsuarioUsecase({})).toThrow(new AppError(AppError.dependencias));
   })
 })
